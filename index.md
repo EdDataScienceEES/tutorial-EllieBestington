@@ -7,15 +7,24 @@ author: Ellie Bestington
 tags: modelling 
 ---
 
-# Tutorial sections: 
+### Tutorial Aims
+
+#### <a href="#section1"> 1. The first section</a>
+
+#### <a href="#section2"> 2. The second section</a>
+
+#### <a href="#section3"> 3. The third section</a>
+
+
+# Tutorial sections
 
 1. [Introduction](#intro)
 2. [Load libraries and data](#load)
 3. [Explore the data](#explore)
 4. [Interpreting glm models](#interpreting)
   * [Model 1- no groups](#mod1)
-	* [Model 2- Adding another fixed effect](#mod2)
- 	* [Model 3- Adding an interactive term](#mod3)
+  * [Model 2- Adding another fixed effect](#mod2)
+  * [Model 3- Adding an interactive term](#mod3)
 5. [Interpreting glmer models](#glmer)
 6. [Confidence in our results](#conf)
 7. [Presenting our results](#pres)
