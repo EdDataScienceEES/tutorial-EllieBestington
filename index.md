@@ -7,7 +7,7 @@ author: Ellie Bestington
 tags: modelling 
 ---
 
-# Tutorial sections: ----
+# Tutorial sections: 
 
 1. [Introduction](#intro)
 2. [Load libraries and data](#load)
