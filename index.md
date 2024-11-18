@@ -127,4 +127,32 @@ Awesome, now let's create a model that simply investigates `Count~YearScale`, no
 Mod1<- glm(Count~YearScale, data= HummingBirds, family= "poisson")
 summary(Mod1)
 ```
+And you should get an output like this: 
+
+<img width="464" alt="Model_1_summary" src="https://github.com/user-attachments/assets/cdcf4fc1-6afa-460d-926e-41309c79b3bf">
+
+We are mainly focusing on the coefficients table and specifically the 'estimate' column. Let's break it down. 
+
+Our intercept row simply states where the line will cross the y-axis. The Year row simply states the value in which y increases each year (or in otherwords, the gradient of the line). So, in our model above it would appear that our line crosses at x and increases by y per year. Or if we put it into the context of our data, in year 0 we have 1.71 hummingbirds and the population increases by 0.012 each year. 
+
+However, like most things in ecology, it isn't that straightforward! 
+
+__We need to take the exponential of these numbers__. Why? Well, it's because we have a poisson distribution. For the human brain we like straight lines, and in order to keep the graph have a straight line of best fit (instead of curved exponential), when R builds the model, it had to take a log of each count value. So when we interpret the output, we need to reverse what R did in the background and take an exponential of the values in the table. Luckily R has a lovely line of code to do this for us: 
+
+```
+exp(1.716395)  # how many hummingbirds at year 0
+exp(0.012742)  # how much growth in hummingbirds per year
+```
+You should get 5.56 and 1.012 respectively. 
+
+Now, one final step (I promise!). The value of the growth per year isn't our final number. We're going to take it back to some high school maths and the topic of percentage change. For example, if you had a change of 1.5, our percentage change would be 50% (as if we multiplied our orginal value by 1.5, it would increase by 50%). If we had a change of 1, our percentage change would be 0% (as we multiply our original value by 1 which would keep it the same). If we had a change of 0.5, our percentage change would be -50%. Get it? 
+
+So for our output, it means out percentage change is __+1.2%__ (as if we take our original value and mulitply it by 1.012, it would increase by 1.2%).
+
+If we plot the all the data, ignoring species and site, this is what we get. Looks like our line would interceot at 5.56 and increases by 1.2% per year. 
+
+![all data plot](https://github.com/user-attachments/assets/d20f6f80-1284-4a31-87f1-989c040917a6)
+
+
+Phew, that was a lot. Take a break and make sure you understand the above as next we will add a bit more complexity. 
 
