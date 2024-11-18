@@ -22,6 +22,9 @@ HummingBirds <- read_csv("Data/HummingBirds.csv")
 
 # EXPLORE DATA----
 
+length(unique(HummingBirds$Species))  # number of species in dataset
+length(unique(HummingBirds$Site)) # number of sites in dataset 
+
 # create plot of Count against Year with a panel for each site, points coloured by species
 (PlotData <- ggplot(HummingBirds, aes(x = Year, y = Count, colour = Species)) +
    facet_wrap(~Site, nrow=2) +    
@@ -42,6 +45,17 @@ summary(mod1)
 exp(1.716395)  # how many hummingbirds at year 0
 exp(0.012742)  # how much growth in hummingbirds per year 
 
+# plot of all data to visualise
+(mod1plot<- ggplot(data = HummingBirds, aes(x = YearScale, y = Count)) +
+    geom_smooth(method = "lm") +  # plot the fitted line
+    geom_point(data = HummingBirds, aes(x = YearScale, y = Count),
+               size = 2, shape = 21, alpha = 0.5)+  # plot the raw data
+    labs(x = "Year",
+         y = "Count")+
+    theme_pubr()
+)
+
+
 # investigate confidence intervals (as better than standard error in table), can also plot these (see later)
 ggpredict(mod1, terms = c("YearScale"))
 
@@ -52,6 +66,8 @@ ggpredict(mod1, terms = c("YearScale"))
 # build model 
 mod2<- glm(Count~ YearScale + Site, data = HummingBirds, family = "poisson")
 summary(mod2)
+
+exp(1.463403+ -0.578096) # example of interpretation 
 
 ggpredict(mod2, terms = c("YearScale","Site"))
 
@@ -68,13 +84,17 @@ ggpredict(mod2, terms = c("YearScale","Site"))
 mod3<- glm(Count~ YearScale*Site, data = HummingBirds, family = "poisson")
 summary(mod3)
 
+# interpret example for Mexico B 
+exp(-2.552914 + 5.078519)  # intercept for Mexico B 
+exp( 0.111682 +  -0.117649) # growth for Mexico B
+
 # lots of numbers but don't panic! Same principles as before apply
 # but now we have the individual value for how each site's growth changes 
 # as we have accounuted for fact that they will be different 
 
 pred.mm<- ggpredict(mod3, terms = c("YearScale","Site"))
 
-# INTERPRETING GLMER MODEL 
+# INTERPRETING GLMER MODEL----
 
 # add species as a random effect (as our question is looking at sites not species)
 mod4<- glmer(Count~ YearScale*Site + (1|Species), data = HummingBirds, family = "poisson")
