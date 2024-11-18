@@ -53,4 +53,78 @@ Up to speed? Now let's begin!!
 
 We are going to focus on some data about Hummingbird abundances in countries across North America. The data is taken from the Christmas Bird Count which is a volunteer led survey and has been going on for over 100 years! The data is publically available (you just need to register for free) so if you are interested then [click here](https://www.audubon.org/community-science/christmas-bird-count) to find out more. 
 
-Let's start by loading the data and the libraries we around going to need for this session. 
+Let's start by loading the data and the libraries we around going to need for this session. Open a new script in R Studio and write down a header, author name, contact details and date (this is just good practise when working on any script). 
+
+Remember, if you don't already have any of these packages downloaded onto your device, ensure to `install.packages("PACKAGE NAME")`
+
+```
+# CODE FOR TUTORIAL 
+# Interpreting linear models 
+# Author: Ellie Bestington
+# Contact: E.Bestington@sms.ed.ac.uk
+# Date: 17/11/2024
+
+
+# Libraries----
+library(tidyverse) # includes packages such as dyplr and ggplot for data wrangling and visualisation
+library(readr) # allows us to load our data 
+library(lme4)  # package containing glm, glmer models
+library(DHARMa) # useful for analysis of our linear models 
+library(ggeffects)  # models predictions 
+library(stargazer) # generate table of results 
+library(ggpubr) # cool theme to play with- makes plot theme as 'published'
+
+# LOAD DATA
+HummingBirds <- read_csv("Data/HummingBirds.csv")  # if you cloned the repo use this, if not then remember to change the filepath
+```
+
+# Explore the data
+{: #explore}
+
+Now we've loaded the data into our environment, we can look at the basic structure of the dataframe to get some idea of the different variables it contains. 
+
+```
+head(HummingBirds) # produces first few rows of dataframe
+length(unique(HummingBirds$Species))  # number of species in dataset
+length(unique(HummingBirds$Site)) # number of sites in dataset
+
+```
+From this we can see we have 5 species measured for their abundance across 6 sites. This can help us shape the research question we want to ask. In this tutorial, we will answer the question of: __What are Hummingbird numbers doing through time and across sites?__
+
+Now let's create a plot to visualise our data. If you are unfamiliar with `ggplot` package, head to [this tutorial](https://ourcodingclub.github.io/tutorials/datavis/).
+
+```
+(PlotData <- ggplot(HummingBirds, aes(x = Year, y = Count, colour = Species)) +
+   facet_wrap(~Site, nrow=2) +    
+   geom_point(alpha = 0.5) +
+   theme_classic())
+```
+
+And you should get something like this. 
+![plotdata general](https://github.com/user-attachments/assets/5a2e1b10-2c48-400d-9aca-8d13493aa0ad)
+
+As you can see, there's lots of variation in abundance of each species in each site. Some are more abundant than others! 
+
+Now, I've already ran the numbers to identify that this dataset violates the assumptions of a linear model, and our data in fact has a poisson distribution. But if you want to have a go and practise yourself then by all means! If you've forgot how to do this, head back to the [previous tutorial](https://ourcodingclub.github.io/tutorials/mixed-models/). 
+
+# Interpreting GLM models 
+{: #interpreting}
+
+Great, now that we have a better understanding of what we are working with and the research question we are wanting to answer, let's start building some models. 
+
+## No groups 
+{: #mod1}
+
+For this first model we are going to keep it basic, just so we can break the summary table down a bit easier for you to understand.
+
+First we are going to change the scale of our `Year` variable. This is so our year starts at 1. We do this by creating an object called `YearScale`. 
+```
+YearScale<- HummingBirds$Year - min(HummingBirds$Year)
+```
+Awesome, now let's create a model that simply investigates `Count~YearScale`, no groups. Then run a `summary()`. 
+
+```
+Mod1<- glm(Count~YearScale, data= HummingBirds, family= "poisson")
+summary(Mod1)
+```
+
