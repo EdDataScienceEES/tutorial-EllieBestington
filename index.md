@@ -26,7 +26,7 @@ tags: modelling
 4. [Interpreting glm models](#interpreting)
   * [Model 1- no groups](#mod1)
   * [Model 2- Adding another fixed effect](#mod2)
-  * [Model 3- Adding an interactive term](#mod3)
+  * [Model 3- Adding an interaction term](#mod3)
 5. [Interpreting glmer models](#glmer)
 6. [Confidence in our results](#conf)
 7. [Presenting our results](#pres)
@@ -145,7 +145,7 @@ exp(0.012742)  # how much growth in hummingbirds per year
 ```
 You should get 5.56 and 1.012 respectively. 
 
-Now, one final step (I promise!). The value of the growth per year isn't our final number. We're going to take it back to some high school maths and the topic of percentage change. For example, if you had a change of 1.5, our percentage change would be 50% (as if we multiplied our orginal value by 1.5, it would increase by 50%). If we had a change of 1, our percentage change would be 0% (as we multiply our original value by 1 which would keep it the same). If we had a change of 0.5, our percentage change would be -50%. Get it? 
+Now, one final step (I promise!). The value of the growth per year isn't our final number. We're going to take it back to some high school maths and the topic of percentage change. For example, if you had a change of 1.5, our percentage change would be 50% (as if we multiplied our orginal value by 1.5, it would increase by 50%). If we had a change of 1, our percentage change would be 0% (as we multiply our original value by 1 which would keep it the same). If we had a change of 0.5, our percentage change would be -50%. Put another way, multiply the value by 100, then subtract from 100 to get your % increase or decrease. 
 
 So for our output, it means out percentage change is __+1.2%__ (as if we take our original value and mulitply it by 1.012, it would increase by 1.2%).
 
@@ -178,7 +178,57 @@ For the other sites, we do something a little different. We have Arizona B's est
 <img width="515" alt="model 2_edits" src="https://github.com/user-attachments/assets/99a097b6-cc0d-43f4-8575-9459cd8fa9de">
 
 ```
+exp(1.463403+ -0.578096)  # how many hummingbirds at year  0 in Arizona B
+```
+This gives us 2.42 intercept for Arizona B. 
 
+We then repeat this method for each site! But what about how much each site grows per year? Well, because we have only accounted for site as a fixed effect, the growth is the same for each site. To visualise that, think of it as the line of best fit for each site intercept the y axis at different points but all have the same gradient. Because we have just added `site` as a fixed effect, we assume all sites exhibit the same growth. 
 
+But what if we expect each site to exhibit different growth? 
 
+{% capture callout %}
+## Interaction Terms
 
+If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
+
+{% endcapture %}
+{% include callout.html content=callout colour="important" %}
+
+## Adding an interaction term 
+{: #mod3} 
+
+Now let's assume we expect our sites to exhibit different rates of growth over time by introducing and interaction term to our model. How does this change the model output? 
+```
+mod3<- glm(Count~ YearScale*Site, data = HummingBirds, family = "poisson")
+summary(mod3)
+```
+And we should get this output: 
+
+<img width="497" alt="model_3_summary" src="https://github.com/user-attachments/assets/9e4b4401-7399-440e-8673-20c6211a0d90">
+
+Wow! A lot more numbers! But let's break it down. We already know what the first 2 rows show (the intercept and growth for Arizona A), the next 5 rows starting with `Site` show the intercept for each site and the new additions simply represent the growth per year for each site stated.
+
+And guess what? We interpret it the exact same way as above. Let's do an example for Mexico B. 
+
+1. Add estimate value for `SiteMexicoB` to `Intercept` and take an exponential 
+```
+exp(-2.552914 + 5.078519)
+```
+2. Repeat for `YearScale:SiteMexicoB` with `YearScale`
+```
+exp( 0.111682 +  -0.117649)
+```
+3. Calculate % change
+Given output for change in abundance of hummingbirds in Mexico B is  0.994. This means population is decreasing by 0.6% (remember, multiply by 100, then subtract from 100).
+
+4. Overall result...
+For Mexico B site, the population of hummingbirds starts at 12.5 and decreases by 0.6% per year.
+
+We would then repeat this for each site! Try it yourself by calculating the intercept value and % change per year for the other sites. 
+
+## Interpreting GLMER models
+{: #glmer}
+
+Okay, now that we feel confident with glm models and interpreting fixed effects, let's look at introducing a random effect. 
+
+ 
