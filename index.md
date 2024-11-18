@@ -124,8 +124,8 @@ YearScale<- HummingBirds$Year - min(HummingBirds$Year)
 Awesome, now let's create a model that simply investigates `Count~YearScale`, no groups. Then run a `summary()`. 
 
 ```
-Mod1<- glm(Count~YearScale, data= HummingBirds, family= "poisson")
-summary(Mod1)
+mod1<- glm(Count~YearScale, data= HummingBirds, family= "poisson")
+summary(mod1)
 ```
 And you should get an output like this: 
 
@@ -155,4 +155,30 @@ If we plot the all the data, ignoring species and site, this is what we get. Loo
 
 
 Phew, that was a lot. Take a break and make sure you understand the above as next we will add a bit more complexity. 
+
+## Adding another fixed effect 
+{: #mod2}
+
+For this next model we are going to add another fixed effect of `Site`. In other words, we care about `Site` as a variable in our model. We still have no random effects, so we remain using a `glm`. 
+
+```
+mod2<- glm(Count~ YearScale + Site, data = HummingBirds, family = "poisson")
+summary(mod2)
+```
+And we should get this output: 
+
+<img width="505" alt="model_2_summary" src="https://github.com/user-attachments/assets/4525aaed-5f8b-4173-8f13-633150364b31">
+
+Hang on a minute! What are those extra rows? Because we've introduced another effect (`Site`), we can now look at the change in growth of hummingbirds at each site! Yipee!
+
+But wait? Where is the Arizona A site? Don't panic, it's just hiding in the intercept. The intercept and YearScale rows represent the values for Arizona A. For this site, we do the exact same thing as before. Take the exponentials and for the YearScale, make as a percentage change (follow the steps again above). 
+
+For the other sites, we do something a little different. We have Arizona B's estimate of -0.578, but this is __relative__ to Arizona A. Because of this we need to __add__ the two estimates together, then take the exponential of that. 
+
+<img width="515" alt="model 2_edits" src="https://github.com/user-attachments/assets/99a097b6-cc0d-43f4-8575-9459cd8fa9de">
+
+```
+
+
+
 
