@@ -9,5 +9,5 @@ summary(mod2)
 ```
 And we should get this output: 
 
-<img width="505" alt="model_2_summary" src="Figures_Images/model_2_summary">
+<img width="505" alt="model_2_summary" src="Figures_Images/model_2_summary.png">
 
