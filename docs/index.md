@@ -8,6 +8,6 @@ summary(mod2)
 ```
 And we should get this output: 
 
-[Alt text](https://github.com/EdDataScienceEES/tutorial-EllieBestington/blob/master/Figures_Images/model_2_summary.png)
+(https://github.com/EdDataScienceEES/tutorial-EllieBestington/blob/master/Figures_Images/model_2_summary.png)
 
 
