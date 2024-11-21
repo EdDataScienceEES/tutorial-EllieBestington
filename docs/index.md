@@ -1,4 +1,3 @@
-
 ## Tutorial Aims
 
 #### <a href="#section1"> 1. To interpret the glm and glmer summary.</a>
