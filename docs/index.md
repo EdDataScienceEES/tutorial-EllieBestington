@@ -9,6 +9,6 @@ summary(mod2)
 ```
 And we should get this output: 
 
-<img width="505" alt="model_2_summary" src="https://github.com/user-attachments/assets/5cad0ecb-1c66-4307-b348-32b5925d0244">
+<img width="505" alt="model_2_summary" src="https://github.com/EdDataScienceEES/tutorial-EllieBestington/Figures_Images/model_2_summary.png"> 
 
 
