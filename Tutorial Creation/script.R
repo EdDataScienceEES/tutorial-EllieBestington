@@ -92,7 +92,7 @@ exp( 0.111682 +  -0.117649) # growth for Mexico B
 # but now we have the individual value for how each site's growth changes 
 # as we have accounuted for fact that they will be different 
 
-pred.mm<- ggpredict(mod3, terms = c("YearScale","Site"))
+ggpredict(mod3, terms = c("YearScale","Site"))
 
 # INTERPRETING GLMER MODEL----
 
@@ -100,7 +100,13 @@ pred.mm<- ggpredict(mod3, terms = c("YearScale","Site"))
 mod4<- glmer(Count~ YearScale*Site + (1|Species), data = HummingBirds, family = "poisson")
 summary(mod4)
 
-ggpredict(mod4, terms = c("YearScale", "Site", "Species"), type = "re")
+# exponentials example
+exp(-3.160709) # Arizona A at year 0
+exp( 0.110671) # Arizona A yearly growth 
+exp(-3.160709 + 6.268819) # Mexico C at year 0
+exp(0.110671 +  -0.160005)
+
+pred.mm<- ggpredict(mod4, terms = c("YearScale", "Site", "Species"), type = "re")
 
 FitData<- data.frame(ggpredict(mod4, terms = c("YearScale", "Site", "Species"), type = "re")) %>%
   rename(Site= group, Species= facet, YearScale= x, Count= predicted)
@@ -145,8 +151,10 @@ names(pred.mm)[names(pred.mm) == 'group'] <- 'Site' # rename column name in pred
           
 # PRESENTING RESULTS - Table----
 
-stargazer(mod4, type = "text", 
+stargazer(mod4, type = "html", 
           style = "default", 
           title = "How are hummingbirds doing?", 
           single.row = TRUE,
-          covariate.labels = c("Year", "Arizona B", "Guatemala" "Intercept"))
+          covariate.labels = c("Year", "Arizona B", "Guatemala", "Mexico A", 
+          "Mexico B", "Mexico C", "YearScale:Arizona B", "YearScale:Guatamala", 
+          "YearScale:Mexico A", "YearScale:Mexico B", "YearScale:Mexico C", "Intercept"))
