@@ -1,5 +1,5 @@
 ---
-layout: tutorial 
+layout: pages
 title: Interpreting Linear Models 
 banner: "../Figures & Images/banner_image.jpg"
 date: 2024-11-17
