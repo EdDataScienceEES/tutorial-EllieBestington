@@ -95,7 +95,7 @@ Now let's create a plot to visualise our data. If you are unfamiliar with `ggplo
 
 And you should get something like this. 
 
-<img src="{{ site.baseurl }}/Figures_Images/plotdata general.png" alt="Description of image">
+<img src="../Figures_Images/plotdata general.png">
 
 
 As you can see, there's lots of variation in abundance of each species in each site. Some are more abundant than others! 
