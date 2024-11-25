@@ -1,1 +1,16 @@
 baseurl: "/tutorial-EllieBestington"
+
+# Exclude files from Jekyll build
+exclude:
+    - README.md
+    - LICENSE
+    - CNAME
+    - Gemfile
+    - Gemfile.lock
+    - vendor
+
+# Installed gems
+plugins: 
+    - jekyll-target-blank
+    - jekyll-redirect-from
+
