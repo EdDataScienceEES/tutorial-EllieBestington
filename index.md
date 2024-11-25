@@ -176,14 +176,22 @@ We then repeat this method for each site! __But what about how much each site gr
 
 __But what if we expect each site to exhibit different growth?__ 
 
-
-<h2 style="color: #FFFFFF; background-color: ##1A2838; font-size: 17px;">
+<div class="warning" style='padding:0.1em; background-color:#E9D8FD; color:#69337A'>
+<span>
+<p style='margin-top:1em; text-align:center'>
+<b>Interactive Terms</b></p>
+<p style='margin-left:1em;'>
+If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below.<br><br>
+</p>
+<p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> <b>- Gary Provost</b> <i>(100 Ways to Improve Your Writing, 1985)</i>
+</p></span>
+</div>
 
 ## Interaction Terms
 
 If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
 
-</h2>
+
 
 ## Adding an interaction term 
 {: #mod3} 
