@@ -1,5 +1,5 @@
 # Interpreting linear models 
-### Introduction to linear modelling: part 2
+### Introduction to linear modelling: Part 2
 
 ## Tutorial Aims
 
@@ -27,16 +27,16 @@
 	  
 
 {% capture callout %}
-To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial]({{ site.baseurl }}/tutorials/git/index.html).__ 
+To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial](https://ourcodingclub.github.io/tutorials/git/).__ 
 {% endcapture %}
-{% include callout.html content=callout colour=alert %}
+{% include callout.html content=callout colour=blue %}
 
 # Introduction 
 {: #intro}
 
 In the previous tutorial, we looked at what linear models are, how to build them and then produced a rather busy summary table with lots of numbers. Pretty overwhelming! In this tutorial we will look at what those numbers actually mean and what this means for our investigation. 
 
-This is useful stuff to know, especially when looking at count data and we want to see by how much a species abundance is changing over time. 
+This is useful stuff to know, especially when looking at count data and if we are wanting to see by how much a species abundance is changing over time. 
 
 To attempt this tutorial, it is recommended for learners who have some beginner experience in R and have a knowledge of building linear models in lmer, glm and glmer. If you have no idea what those cryptic words mean, then check out [this tutorial](https://ourcodingclub.github.io/tutorials/mixed-models/). 
 
@@ -47,23 +47,21 @@ Up to speed? Now let's begin!!
 
 We are going to focus on some data about Hummingbird abundances in countries across North America. The data is taken from the Christmas Bird Count which is a volunteer led survey and has been going on for over 100 years! The data is publically available (you just need to register for free) so if you are interested then [click here](https://www.audubon.org/community-science/christmas-bird-count) to find out more. 
 
-Let's start by loading the data and the libraries we around going to need for this session. Open a new script in R Studio and write down a header, author name, contact details and date (this is just good practise when working on any script). 
+Let's start by loading the data and the libraries we are going to need for this session. Open a new script in R Studio and write down a header, author name, contact details and date (this is just good practise when working on any script). 
 
 Remember, if you don't already have any of these packages downloaded onto your device, ensure to `install.packages("PACKAGE NAME")`
 
 ```
-# CODE FOR TUTORIAL 
-# Interpreting linear models 
+# Interpreting linear models tutorial
 # Author: Ellie Bestington
 # Contact: E.Bestington@sms.ed.ac.uk
-# Date: 17/11/2024
+# Date: 25/11/2024
 
 
 # Libraries----
 library(tidyverse) # includes packages such as dyplr and ggplot for data wrangling and visualisation
 library(readr) # allows us to load our data 
-library(lme4)  # package containing glm, glmer models
-library(DHARMa) # useful for analysis of our linear models 
+library(lme4)  # package containing glmer model 
 library(ggeffects)  # models predictions 
 library(stargazer) # generate table of results 
 library(ggpubr) # cool theme to play with- makes plot theme as 'published'
@@ -89,7 +87,7 @@ Now let's create a plot to visualise our data. If you are unfamiliar with `ggplo
 
 ```
 (PlotData <- ggplot(HummingBirds, aes(x = Year, y = Count, colour = Species)) +
-   facet_wrap(~Site, nrow=2) +    
+   facet_wrap(~Site, nrow=2) +  # facet_wrap seperates each plot by site     
    geom_point(alpha = 0.5) +
    theme_classic())
 ```
@@ -115,7 +113,7 @@ First we are going to change the scale of our `Year` variable. This is so our ye
 ```
 YearScale<- HummingBirds$Year - min(HummingBirds$Year)
 ```
-Awesome, now let's create a model that simply investigates `Count~YearScale`, no groups. Then run a `summary()`. 
+Awesome, now let's create a model that simply investigates `Count~YearScale`, no groups. In the context of our question, we want to look at how all hummingbird species change with time, regardless of site or species. Then run a `summary()`. 
 
 ```
 mod1<- glm(Count~YearScale, data= HummingBirds, family= "poisson")
@@ -127,9 +125,9 @@ And you should get an output like this:
 
 We are mainly focusing on the coefficients table and specifically the 'estimate' column. Let's break it down. 
 
-Our intercept row simply states where the line will cross the y-axis. The Year row simply states the value in which y increases each year (or in otherwords, the gradient of the line). So, in our model above it would appear that our line crosses at 1.71 and increases by 0.012 per year. Or if we put it into the context of our data, in year 0 we have 1.71 hummingbirds and the population increases by 0.012 each year. 
+Our intercept row simply states where the line will cross the y-axis. The Year row states the value in which y changes each year (or in otherwords, the gradient of the line). So, in our model above it would appear that our line crosses at 1.71 and increases by 0.012 per year. Or if we put it into the context of our data, in year 0 we have 1.71 hummingbirds and the population increases by 0.012 each year. 
 
-However, like most things in ecology, it isn't that straightforward! 
+__However, like most things in ecology, it isn't that straightforward!__ 
 
 __We need to take the exponential of these numbers__. Why? Well, it's because we have a poisson distribution. For the human brain we like straight lines, and in order to keep the graph having a straight line of best fit (instead of curved exponential), when R builds the model, it had to take a log of each count value. So when we interpret the output, we need to reverse what R did in the background and take an exponential of the values in the table. Luckily R has a lovely line of code to do this for us: 
 
@@ -143,7 +141,7 @@ Now, one final step (I promise!). The value of the growth per year isn't our fin
 
 So for our output, it means out percentage change is __+1.2%__ (as if we take our original value and mulitply it by 1.012, it would increase by 1.2%).
 
-If we plot the all the data, ignoring species and site, this is what we get. Looks like our line would interceot at 5.56 and increases by 1.2% per year. 
+If we plot the all the data, ignoring species and site, this is what we get. Looks like our line would intercept at 5.56 and increases by 1.2% per year. 
 
 ![all data plot](https://github.com/user-attachments/assets/d20f6f80-1284-4a31-87f1-989c040917a6)
 
@@ -153,7 +151,7 @@ Phew, that was a lot. Take a break and make sure you understand the above as nex
 ## Adding another fixed effect 
 {: #mod2}
 
-For this next model we are going to add another fixed effect of `Site`. In other words, we care about `Site` as a variable in our model. We still have no random effects, so we remain using a `glm`. 
+For this next model we are going to add another fixed effect of `Site`. In other words, we care about `Site` as a variable in our model and want to see the influence of site on hummingbird numbers. We still have no random effects, so we remain using a `glm`. 
 
 ```
 mod2<- glm(Count~ YearScale + Site, data = HummingBirds, family = "poisson")
@@ -165,7 +163,7 @@ And we should get this output:
 
 Hang on a minute! What are those extra rows? Because we've introduced another effect (`Site`), we can now look at the change in growth of hummingbirds at each site! Yipee!
 
-But wait? Where is the Arizona A site? Don't panic, it's just hiding in the intercept. The intercept and YearScale rows represent the values for Arizona A. For this site, we do the exact same thing as before. Take the exponentials and for the YearScale, make as a percentage change (follow the steps again above). 
+But wait? __Where is the Arizona A site?__ Don't panic, it's just hiding in the intercept. The intercept and YearScale rows represent the values for Arizona A. For this site, we do the exact same thing as before. Take the exponentials and for the YearScale, make as a percentage change (follow the steps again above). 
 
 For the other sites, we do something a little different. We have Arizona B's estimate of -0.578, but this is __relative__ to Arizona A. Because of this we need to __add__ the two estimates together, then take the exponential of that. 
 
@@ -176,11 +174,12 @@ exp(1.463403 + -0.578096)  # how many hummingbirds at year  0 in Arizona B
 ```
 This gives us 2.42 intercept for Arizona B. 
 
-We then repeat this method for each site! But what about how much each site grows per year? Well, because we have only accounted for site as a fixed effect, the growth is the same for each site. To visualise that, think of it as the line of best fit for each site intercept the y axis at different points but all have the same gradient. Because we have just added `site` as a fixed effect, we assume all sites exhibit the same growth. 
+We then repeat this method for each site! __But what about how much each site grows per year?__ Well, because we have only accounted for site as a fixed effect, the growth is the same for each site. To visualise that, think of it as the line of best fit for each site intercept the y axis at different points but all have the same gradient. Because we have just added `site` as a fixed effect, we assume all sites exhibit the same growth. 
 
-But what if we expect each site to exhibit different growth? 
+__But what if we expect each site to exhibit different growth?__ 
 
 {% capture callout %}
+
 ## Interaction Terms
 
 If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
