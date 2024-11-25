@@ -1,3 +1,5 @@
+_**Disclaimer**: Hello, my tutorial was the one in class that wouldn't become a html website with its images, so as per my instructions, I have kept it as a README.md file. Because of this, some of the extra code e.g. coloured text boxes etc, do not appear in github markdown that otherwise would on a html website. Throughout the tutorial, any text in italics (like this), is me commenting on what it should look like if it was a html website/it it worked, and NOT part of the tutorial content. Hope that is okay- any questions, then please feel free to email me at E.Bestington@ed.ac.uk. Thank you!_
+
 # Interpreting linear models 
 ### Introduction to linear modelling: Part 2
 
@@ -25,11 +27,10 @@
 6. [Confidence in our results](#conf)
 7. [Presenting our results](#pres)
 	  
+_Above would link to specific section when clicked_
 
-{% capture callout %}
 To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial](https://ourcodingclub.github.io/tutorials/git/).__ 
-{% endcapture %}
-{% include callout.html content=callout colour=blue %}
+
 
 # Introduction 
 {: #intro}
@@ -178,14 +179,15 @@ We then repeat this method for each site! __But what about how much each site gr
 
 __But what if we expect each site to exhibit different growth?__ 
 
-{% capture callout %}
+_There is code here that changes background colour of interactive terms text box below to blue if was a website_
+
+<h2 style="color: #FFFFFF; background-color: ##77bdfb; font-size: 17px;">
 
 ## Interaction Terms
 
 If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
 
-{% endcapture %}
-{% include callout.html content=callout colour="important" %}
+</h2>
 
 ## Adding an interaction term 
 {: #mod3} 
@@ -203,14 +205,17 @@ Wow! A lot more numbers! But let's break it down. We already know what the first
 
 And guess what? We interpret it the exact same way as above. Let's do an example for Mexico B. 
 
-1. Add estimate value for `SiteMexicoB` to `Intercept` and take an exponential 
+1. Add estimate value for `SiteMexicoB` to `Intercept` and take an exponential
+
 ```
 exp(-2.552914 + 5.078519)
 ```
 2. Repeat for `YearScale:SiteMexicoB` with `YearScale`
+
 ```
 exp(0.111682 +  -0.117649)
 ```
+
 3. Calculate % change
 Given output for change in abundance of hummingbirds in Mexico B is  0.994. This means population is decreasing by 0.6% (remember, multiply by 100, then subtract from 100).
 
@@ -222,7 +227,7 @@ We would then repeat this for each site! Try it yourself by calculating the inte
 ## Interpreting GLMER models
 {: #glmer}
 
-Okay, now that we feel confident with glm models and interpreting fixed effects, let's look at introducing the random effect of `species`. In other words, we do not care about the growth over time of each species group, but we still want the model to account for that. Ypu may get a warning message, but don't worry about that for now. 
+Okay, now that we feel confident with glm models and interpreting fixed effects, let's look at introducing the random effect of `species`. In other words, we do not care about the growth over time of each species group, but we still want the model to account for that. You may get a warning message, but don't worry about that for now. Remember, to add a random effect, you use `(1|your_group)`. 
 
 ```
 mod4<- glmer(Count~ YearScale*Site + (1|Species), data = HummingBirds, family = "poisson")
@@ -244,7 +249,7 @@ __3. How many hummingbirds are in Mexico C at year 0?__ Answer: 22.4
 
 __4. What is the growth per year in hummingbirds for Mexico C?__ Answer: +4.81%
 
-If you're interested in what the rest of the output means, follow [this link](https://www.simonqueenborough.info/R/statistics/lessons/Mixed_Effects_Models.html) to a handy website that gives you the low down. 
+If you're interested in what the rest of the output means, follow [this link](https://www.simonqueenborough.info/R/statistics/lessons/Mixed_Effects_Models.html) to a handy website that gives you the low down. It also explains interpreting lmer models too. 
 
 
 ## Confidence in our results 
@@ -258,7 +263,7 @@ In the fixed effects table of the model output, there is a column of `St. Error`
 
 However, it is not the best method. The main reason is because it is only reliable in large datasets, as it is based on large sample approximations. 
 
-So instead we use...
+So instead it is better to use...
 
 ### 2. Confidence intervals
 
@@ -280,7 +285,7 @@ Note how for models 2 and 3 you get the confidence interval table for each site 
 ## Presenting your results 
 {: #pres}
 
-Now that we have our results, let's think about how we can present them in two ways: plot and table. 
+Now that we have our results, let's think about how we can present them in two ways: as a plot and table. 
 
 ### Plot 
 
@@ -289,10 +294,13 @@ There are many ways to present your results as a plot and it all depends on your
 Say we wanted to see how overall hummingbird numbers are doing across each site. This is how we would do it. 
 
 First we need to assign our `ggpredict()` for model 4 to an object. Let's call it `pred.mm`. 
+
 ```
 pred.mm<- ggpredict(mod4, terms = c("YearScale", "Site", "Species"), type = "re")
 ```
+
 If you view `pred.mm` you will see the column of sites is named `group`. Let's change that to `Site`. 
+
 ```
 names(pred.mm)[names(pred.mm) == 'group'] <- 'Site' # rename column name in pred.mm
 ```
@@ -394,4 +402,4 @@ If you wanted to upload this table to a markdown file, like that on GitHub, simp
 </table>
 
 
-And there you go! You can now interpret your `glm` and `glmer` model output and beautifully present your results! 
+And there you go! Easy peasy! You should now be able to interpret your `glm` and `glmer` model output and beautifully present your results! 
