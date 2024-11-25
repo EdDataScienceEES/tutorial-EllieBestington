@@ -1,5 +1,3 @@
-_**Disclaimer**: Hello, my tutorial was the one in class that wouldn't become a html website with its images, so as per my instructions, I have kept it as a README.md file. Because of this, some of the extra code e.g. coloured text boxes etc, do not appear in github markdown that otherwise would on a html website. Throughout the tutorial, any text in italics (like this), is me commenting on what it should look like if it was a html website/it it worked, and NOT part of the tutorial content. Hope that is okay- any questions, then please feel free to email me at E.Bestington@ed.ac.uk. Thank you!_
-
 # Interpreting linear models 
 ### Introduction to linear modelling: Part 2
 
@@ -27,7 +25,6 @@ _**Disclaimer**: Hello, my tutorial was the one in class that wouldn't become a 
 6. [Confidence in our results](#conf)
 7. [Presenting our results](#pres)
 	  
-_Above would link to specific section when clicked_
 
 To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial](https://ourcodingclub.github.io/tutorials/git/).__ 
 
@@ -179,9 +176,8 @@ We then repeat this method for each site! __But what about how much each site gr
 
 __But what if we expect each site to exhibit different growth?__ 
 
-_There is code here that changes background colour of interactive terms text box below to blue if was a website_
 
-<h2 style="color: #FFFFFF; background-color: ##77bdfb; font-size: 17px;">
+<h2 style="color: #FFFFFF; background-color: ##1A2838; font-size: 17px;">
 
 ## Interaction Terms
 
