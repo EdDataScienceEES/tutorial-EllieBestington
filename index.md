@@ -24,13 +24,8 @@
 5. [Interpreting glmer models](#glmer)
 6. [Confidence in our results](#conf)
 7. [Presenting our results](#pres)
-	  
-<div class="warning" style='padding:0.1em; background-color:#E9D8FD; color:#69337A'>
-<span>
-<p style='margin-left:1em;'>
-To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial](https://ourcodingclub.github.io/tutorials/git/).__ <br><br>
-</p></span>
-</div>
+	
+To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial](https://ourcodingclub.github.io/tutorials/git/).__ 
 
 # Introduction 
 {: #intro}
