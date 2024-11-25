@@ -26,10 +26,9 @@
 7. [Presenting our results](#pres)
 	  
 
-{% capture callout %}
+
 To get all you need for this session, __go to [the repository for this tutorial](https://github.com/EdDataScienceEES/tutorial-EllieBestington/tree/master), click on `Clone/Download/Download ZIP` to download the files and then unzip the folder. Alternatively, fork the repository to your own Github account, clone the repository on your computer and start a version-controlled project in RStudio. For more details on how to do this, please check out our [Intro to Github for Version Control tutorial]({{ site.baseurl }}/tutorials/git/index.html).__ 
-{% endcapture %}
-{% include callout.html content=callout colour=alert %}
+
 
 # Introduction 
 {: #intro}
@@ -181,13 +180,10 @@ We then repeat this method for each site! But what about how much each site grow
 
 But what if we expect each site to exhibit different growth? 
 
-{% capture callout %}
 ## Interaction Terms
 
 If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
 
-{% endcapture %}
-{% include callout.html content=callout colour="important" %}
 
 ## Adding an interaction term 
 {: #mod3} 
