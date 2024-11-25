@@ -182,16 +182,8 @@ __But what if we expect each site to exhibit different growth?__
 <b>Interactive Terms</b></p>
 <p style='margin-left:1em;'>
 If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below.<br><br>
-</p>
-<p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> <b>- Gary Provost</b> <i>(100 Ways to Improve Your Writing, 1985)</i>
 </p></span>
 </div>
-
-## Interaction Terms
-
-If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
-
-
 
 ## Adding an interaction term 
 {: #mod3} 
