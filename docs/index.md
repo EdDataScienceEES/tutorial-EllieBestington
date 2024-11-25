@@ -181,7 +181,7 @@ We then repeat this method for each site! But what about how much each site grow
 
 But what if we expect each site to exhibit different growth? 
 
-<h2 style="color: #FFFFFF; background-color: ##7ca7d9; font-size: 17px;">
+<h2 style="color: #FFFFFF; background-color: ##77bdfb; font-size: 17px;">
 
 ## Interaction Terms </br>
 
