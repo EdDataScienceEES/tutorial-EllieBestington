@@ -181,9 +181,9 @@ We then repeat this method for each site! But what about how much each site grow
 
 But what if we expect each site to exhibit different growth? 
 
-<h2 style="color: #FFFFFF; background-color: #1A2838; font-size: 17px;">
+<h2 style="color: #FFFFFF; background-color: ##7ca7d9; font-size: 17px;">
 
-## Interaction Terms
+## Interaction Terms </br>
 
 If we expect each group to experience different levels of growth in our model, we can introduce an interaction term. To do this we simply replace the `+` before our grouping variable with `*`. Let's do an example below. 
 
